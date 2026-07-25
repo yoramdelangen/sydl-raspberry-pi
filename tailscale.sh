@@ -1,6 +1,6 @@
 mkdir -p /opt/tailscale-state
 
-docker run -d \
+podman run -d \
    --name tailscale \
    --hostname tailscale-nginx \
    --env-file=tailscale.env \

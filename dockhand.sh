@@ -2,7 +2,7 @@
 mkdir -p /opt/dockhand
 
 # Use matching paths with DATA_DIR
-docker run -d \
+podman run -d \
   --name dockhand \
   -p 3000:3000 \
   -v /run/podman/podman.sock:/var/run/docker.sock:Z \
