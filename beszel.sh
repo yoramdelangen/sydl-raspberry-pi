@@ -3,7 +3,7 @@ if [[ ! -d /opt/beszel ]]; then
     sudo chown "$UID:$GID" /opt/beszel
 fi
 
-docker run -d \
+podman run -d \
   --name beszel \
   --restart=unless-stopped \
   -v /opt/beszel:/beszel_data \
