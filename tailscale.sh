@@ -9,6 +9,7 @@ fi
 
 sudo mkdir -p /opt/tailscale-state
 sudo chown -R "$username" /opt/tailscale-state/
+mkdir -p "$HOME/.config/tailscale/"
 
 NAME="tailscale"
 
@@ -23,6 +24,7 @@ podman run -d \
     --env-file=tailscale.env \
     --network=sydl-network \
     -v /opt/tailscale-state:/var/lib/tailscale \
+    -v "$HOME/.config/tailscale:/config:ro" \
     --cap-add=net_admin \
     --cap-add=net_raw \
     --restart unless-stopped \
@@ -44,3 +46,14 @@ if [ ! -f "$HOME/.config/systemd/user/container-$NAME.service" ]; then
     systemctl --user status container-tailscale.service
 fi
 
+# Forwarding SSH connection traffic to the machine:
+#
+# podman exec tailscale tailscale serve --bg --tcp=22 tcp://host.containers.internal:22
+#
+# Checking status:
+#
+# podman exec tailscale tailscale serve status
+#
+# Create a snapshot from the current serving:
+#
+# podman exec tailscale tailscale serve status --json
