@@ -1,7 +1,25 @@
 # Create the directory on the host
-mkdir -p /opt/dockhand
+sudo mkdir -p /opt/dockhand
+sudo chown -R "$(whoami)" /opt/dockhand
 
-systemctl --user start podman.socket
+if ! systemctl --user is-enabled --quiet podman.socket ||
+   ! systemctl --user is-active --quiet podman.socket; then
+    echo "Podman socket is not fully enabled/active"
+
+    systemctl --user start podman.socket
+    systemctl --user enable podman.socket
+
+    # Verify
+    systemctl --user is-enabled podman.socket
+    ls -la /run/user/$(id -u)/podman/podman.sock
+elif systemctl --user is-enabled --quiet podman.socket && systemctl --user is-active --quiet podman.socket; then
+    echo "Podman.socket was already activated and enabled during startup"
+else
+    echo "Something was unexpected, enabled?"
+    systemctl --user is-enabled podman.socket
+    echo "Podman.socket was started already"
+    ls -la /run/user/$(id -u)/podman/podman.sock
+fi
 
 # Use matching paths with DATA_DIR
 podman run -d \
