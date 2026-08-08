@@ -1,5 +1,14 @@
+
+if [[ -n "${1:-}" ]]; then
+    username="$1"
+else
+    default_user="$USER"
+    read -rp "Username [$default_user]: " username
+    username="${username:-$default_user}"
+fi
+
 sudo mkdir -p /opt/tailscale-state
-sudo chown -R sydl /opt/tailscale-state/
+sudo chown -R "$username" /opt/tailscale-state/
 
 NAME="tailscale"
 
