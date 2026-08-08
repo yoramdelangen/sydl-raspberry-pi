@@ -1,4 +1,5 @@
 sudo mkdir -p /opt/tailscale-state
+sudo chown -R sydl /opt/tailscale-state/
 
 NAME="tailscale"
 
