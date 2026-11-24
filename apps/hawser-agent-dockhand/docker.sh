@@ -20,3 +20,13 @@ docker run -d \
   -p 127.0.0.1:2376:2376 \
   -e "TOKEN=$TOKEN" \
   ghcr.io/finsys/hawser:latest
+
+
+# when running together with tailscale, we should connect both containers in the same network.
+# and run the following command to make sure the dockhand agent container is being served via tailscale.
+# The following command stores the serve in a config file, which is persistent;
+#
+# podman exec tailscale tailscale serve --bg --tcp=2376 tcp://dockhand-agent-hawser:2376
+# or
+# sudo tailscale serve --bg --tcp 2376 tcp://dockhand-agent-hawser:2376
+

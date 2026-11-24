@@ -62,3 +62,5 @@ fi
 # The following command stores the serve in a config file, which is persistent;
 #
 # podman exec tailscale tailscale serve --bg --tcp=2376 tcp://dockhand-agent-hawser:2376
+# or
+# sudo tailscale serve --bg --tcp 2376 tcp://dockhand-agent-hawser:2376
