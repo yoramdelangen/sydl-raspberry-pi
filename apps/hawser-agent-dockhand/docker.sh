@@ -28,5 +28,5 @@ docker run -d \
 #
 # podman exec tailscale tailscale serve --bg --tcp=2376 tcp://dockhand-agent-hawser:2376
 # or
-# sudo tailscale serve --bg --tcp 2376 tcp://dockhand-agent-hawser:2376
+sudo tailscale serve --bg --tcp 2376 tcp://dockhand-agent-hawser:2376
 
